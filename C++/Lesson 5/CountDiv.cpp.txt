@@ -1,0 +1,35 @@
+//Detected time complexity:
+//O(1)
+
+// you can use includes, for example:
+// #include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(int A, int B, int K) {
+    // Implement your solution here
+    if(K == 1) {
+        return B - A + 1;
+    }
+    if (A == B) {
+        if (A % K == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    long firstDivisible = 0;
+    int numberOfDivisible = 0;
+    for (int i = A; i <= B; i++) {
+        if(i % K == 0) {
+            firstDivisible = i;
+            break;
+        }
+    }
+    while (firstDivisible <= B) {
+        firstDivisible += K;
+        numberOfDivisible++;
+    }
+    return numberOfDivisible;
+}

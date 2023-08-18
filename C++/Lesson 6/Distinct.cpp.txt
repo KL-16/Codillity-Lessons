@@ -1,0 +1,24 @@
+// you can use includes, for example:
+#include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if(A.size() == 0) {
+        return 0;
+    } else if (A.size() == 1) {
+        return 1;
+    }
+    sort(A.begin(), A.end());
+    int lastDistinct = A[0];
+    int numberOfDistinct = 1;
+    for (int i = 1; i < A.size(); i++) {
+        if (A[i] != lastDistinct) {
+            lastDistinct = A[i];
+            numberOfDistinct++;
+        }
+    }
+    return numberOfDistinct;
+}

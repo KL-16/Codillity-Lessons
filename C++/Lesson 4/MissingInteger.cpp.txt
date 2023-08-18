@@ -1,0 +1,40 @@
+//Detected time complexity:
+//O(N) or O(N * log(N))
+
+// you can use includes, for example:
+#include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if(A.size() == 1) {
+        if(A[0] != 1) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+    sort(A.begin(), A.end());
+    bool lookForOne = true;
+    for (int i = 0; i < A.size() - 1; i++) {
+        if(A[i] > 0) {
+            if(lookForOne) {
+                if (A[i] != 1) {
+                    return 1;
+                } else {
+                    lookForOne = false;
+                }
+            }
+            if (A[i + 1] - A[i] > 1) {
+                return A[i] + 1;
+            }
+        }
+    }
+    if (lookForOne) {
+        return 1;
+    } else {
+        return A[A.size() - 1] + 1;
+    }
+}

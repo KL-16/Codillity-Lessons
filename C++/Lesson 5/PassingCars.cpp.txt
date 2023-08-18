@@ -1,0 +1,55 @@
+//Detected time complexity:
+//O(N)
+
+// you can use includes, for example:
+// #include <algorithm>
+#include <stack>
+#include <iostream>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if(A.size() == 1) {
+        return 0;
+    }
+    long totalPassedCars = 0;
+    int firstCarPassingCars = 0;
+    int carsGoingTheSameDirection = 0;
+    bool startCounting = true;
+    int firstEastIndex = 0;
+    vector<int> nextCarGoingTheSameDirection;
+    if (A[0] == 1) {
+        startCounting = false;
+    }
+    for (int i = 1; i < A.size(); i++) {
+        if(startCounting == false) {
+            if (A[i] == 1) {
+            } else {
+                startCounting = true;
+                firstEastIndex = i;
+            }
+        } 
+        else if (startCounting) {
+           
+                if (A[i] != A[firstEastIndex]) {
+                    firstCarPassingCars++;
+                } else {
+                    nextCarGoingTheSameDirection.push_back(i);
+                    carsGoingTheSameDirection++;
+                }
+             
+        }
+    }
+    totalPassedCars = firstCarPassingCars;
+    for (int i = 0; i < nextCarGoingTheSameDirection.size(); i++) {
+        totalPassedCars += A.size() - nextCarGoingTheSameDirection[i] - carsGoingTheSameDirection;
+        carsGoingTheSameDirection--;
+    }
+    if(totalPassedCars > 1000000000) {
+        return -1;
+    } else {
+        return totalPassedCars;
+    }
+}

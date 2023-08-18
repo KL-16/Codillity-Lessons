@@ -1,0 +1,24 @@
+// you can use includes, for example:
+#include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if (A.size() == 3) {
+        return (long)A[0] * A[1] * A[2];
+    }
+    sort(A.begin(), A.end());
+    if(A[0] >= 0) {
+        return (long)A[A.size() - 1] * A[A.size() - 2] * A[A.size() - 3];
+    } else if (A[1] < 0) {
+        if (A[A.size() - 1] * A[A.size() - 2] * A[A.size() - 3] >= A[0] * A[1] * A[A.size() - 1]) {
+            return (long)A[A.size() - 1] * A[A.size() - 2] * A[A.size() - 3];
+        } else {
+            return (long)A[0] * A[1] * A[A.size() - 1];
+        }
+    } else {
+        return (long)A[A.size() - 1] * A[A.size() - 2] * A[A.size() - 3];
+    }
+}

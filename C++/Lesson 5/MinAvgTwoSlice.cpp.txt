@@ -1,0 +1,35 @@
+//Detected time complexity:
+//O(N)
+
+// you can use includes, for example:
+// #include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if(A.size() == 2) {
+        return 0;
+    }
+    float minAverage = 10000;
+    int minAverageIndex = 0;
+    if(A.size() == 3) {
+        minAverage = (float)(A[0] + A[1]) / 2;
+    }
+    for (int i = 0; i < A.size() - 2; i++) {
+        if((float)(A[i] + A[i + 1]) / 2 < minAverage) {
+            minAverage = (float)(A[i] + A[i + 1]) / 2;
+            minAverageIndex = i;
+        }
+        if ((float)(A[i] + A[i + 1] + A[i + 2]) / 3 < minAverage) {
+            minAverage = (float)(A[i] + A[i + 1] + A[i + 2]) / 3;
+            minAverageIndex = i;
+        }
+    }
+    if ((float)(A[A.size() - 2] + A[A.size() - 1]) / 2 < minAverage) {
+        return A.size() - 2;
+    } else {
+        return minAverageIndex;
+    }
+}

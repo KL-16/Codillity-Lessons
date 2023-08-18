@@ -1,0 +1,83 @@
+//Detected time complexity:
+//O(N + M)
+
+// you can use includes, for example:
+// #include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+vector<int> solution(string &S, vector<int> &P, vector<int> &Q) {
+    // Implement your solution here
+    vector<int> A(S.size(), 0);
+    vector<int> C(S.size(), 0);
+    vector<int> G(S.size(), 0);
+    vector<int> T(S.size(), 0);
+    int a = 0, c = 0, g = 0, t = 0;
+    for (int i = 0; i < S.size(); i++) {
+        if (S[i] == 'A') {
+            A[i] = 1;
+        } else if (S[i] == 'C') {
+            C[i] = 1;
+        } else if (S[i] == 'G') {
+            G[i] = 1;
+        } else if (S[i] == 'T') {
+            T[i] = 1;
+        }
+    }
+    for (int i = 0; i < S.size(); i++) {
+        if (A[i] == 1) {
+            a++;
+            A[i] = a;
+        } else {
+            A[i] = a;
+        }
+
+        if (C[i] == 1) {
+            c++;
+            C[i] = c;
+        } else {
+            C[i] = c;
+        }
+
+        if (G[i] == 1) {
+            g++;
+            G[i] = g;
+        } else {
+            G[i] = g;
+        }
+
+        if (T[i] == 1) {
+            t++;
+            T[i] = t;
+        } else {
+            T[i] = t;
+        }
+    }
+
+    vector<int> minimalImpctFactors;
+
+    for (int i = 0; i < P.size(); i++) {
+        if(P[i] == Q[i]) {
+            if(S[P[i]] == 'A') {
+                minimalImpctFactors.push_back(1);
+            } else if (S[P[i]] == 'C') {
+                minimalImpctFactors.push_back(2);
+            } else if (S[P[i]] == 'G') {
+                minimalImpctFactors.push_back(3);
+            } else if (S[P[i]] == 'T') {
+                minimalImpctFactors.push_back(4);
+            }
+        } else {
+        if(A[P[i]] - A[Q[i]] != 0 || (P[i] == 0 && A[0] == 1) || S[P[i]] == 'A') {
+            minimalImpctFactors.push_back(1);
+        } else if(C[P[i]] - C[Q[i]] != 0 || (P[i] == 0 && C[0] == 1) || S[P[i]] == 'C') {
+            minimalImpctFactors.push_back(2);
+        } else if(G[P[i]] - G[Q[i]] != 0 || (P[i] == 0 && G[0] == 1) || S[P[i]] == 'G') {
+            minimalImpctFactors.push_back(3);
+        } else if(T[P[i]] - T[Q[i]] != 0 || (P[i] == 0 && T[0] == 1) || S[P[i]] == 'T') {
+            minimalImpctFactors.push_back(4);
+        }}
+    }
+    return minimalImpctFactors;
+}
