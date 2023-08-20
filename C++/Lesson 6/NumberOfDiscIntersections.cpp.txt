@@ -21,21 +21,16 @@ int solution(vector<int> &A) {
     int openedDiscs = 0;
     int closedDiscsIndex = 0;
     for (int i = 0; i < openingCircles.size(); i++) {
-        if (openingCircles[i] <= closingCircles[closedDiscsIndex]) {
-            intersections += openedDiscs;
-            openedDiscs++;
-        } else {
+        while (openingCircles[i] > closingCircles[closedDiscsIndex]) {
             openedDiscs--;
             closedDiscsIndex++;
-            intersections += openedDiscs;
         }
-        cout << "openingCircles[i]: " << openingCircles[i] << endl;
-        cout << "closingCircles[closedDiscsIndex]: " << closingCircles[closedDiscsIndex] << endl;
-        cout << "closedDiscsIndex: " << closedDiscsIndex << endl;
-        cout << "opened discs: " << openedDiscs << endl;
-        cout << "i: " << i << endl;
-        cout << "intersections: " << intersections << endl;
-        cout << ">>>>>>>>>>>>>>>>>>>>>" << endl;
+        intersections += openedDiscs;
+        openedDiscs++;
     }
-    return intersections;
+    if (intersections > 10000000) {
+        return -1;
+    } else {
+        return intersections;
+    }
 }

@@ -1,0 +1,30 @@
+// you can use includes, for example:
+// #include <algorithm>
+#include <map>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if (A.size() == 0) {
+        return -1;
+    } else if (A.size() == 1) {
+        return 0;
+    }
+    map<int, int> uniqueValues;
+    auto it = uniqueValues.end();
+    int minNumberOfOccurencies = A.size() / 2 + 1;
+    for (int i = 0; i < A.size(); i++) {
+        it = uniqueValues.find(A[i]);
+        if(it ==uniqueValues.end()) {
+            uniqueValues.insert({A[i], 1});
+        } else {
+            it->second++;
+            if (it->second >= minNumberOfOccurencies) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}

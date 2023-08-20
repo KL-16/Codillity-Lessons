@@ -1,0 +1,32 @@
+// you can use includes, for example:
+// #include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &H) {
+    // Implement your solution here
+    int last = 0;
+    int stonesNeeded = 0;
+    vector<int> AscendingBlocks;
+    for (int i = 0; i < H.size(); i++) {
+        if (H[i] > last) {
+            last = H[i];
+            stonesNeeded++;
+            AscendingBlocks.push_back(H[i]);
+        }
+        else if (H[i] < last) {
+            int j = AscendingBlocks.size() - 1;
+            while (H[i] < AscendingBlocks[j]) {
+                AscendingBlocks.pop_back();
+                j--;
+            }
+            if(H[i] != AscendingBlocks[AscendingBlocks.size() - 1]) {
+                stonesNeeded++;
+                AscendingBlocks.push_back(H[i]);
+            }
+            last = H[i];
+        }
+    }
+    return stonesNeeded;
+}
