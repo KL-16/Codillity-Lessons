@@ -1,0 +1,54 @@
+// you can use includes, for example:
+// #include <algorithm>
+#include <map>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if (A.size() == 1) {
+        return 0;
+    }
+    map<int, int> uniqueValues;
+    auto it = uniqueValues.end();
+    int minNumberOfOccurencies = A.size() / 2 + 1;
+    int DominatorValue = -1000000001;
+    for (int i = 0; i < A.size(); i++) {
+        it = uniqueValues.find(A[i]);
+        if(it ==uniqueValues.end()) {
+            uniqueValues.insert({A[i], 1});
+        } else {
+            it->second++;
+            if (it->second >= minNumberOfOccurencies) {
+                DominatorValue = A[i];
+            }
+        }
+    }
+    if (DominatorValue == -1000000001) {
+        return 0;
+    } else {
+        vector<int> leaderValues;
+        int rightSideSum = 0;
+        for (int i = 0; i < A.size(); i++) {
+            if (A[i] == DominatorValue) {
+                leaderValues.push_back(1);
+                rightSideSum++;
+            } else {
+                leaderValues.push_back(0);
+            }
+        }
+        int leftSideSum = 0;
+        int equileaders = 0;
+        for (int i = 0; i < leaderValues.size(); i++) {
+            if (leaderValues[i] == 1) {
+                leftSideSum++;
+                rightSideSum--;
+            }
+            if (leftSideSum * 2 > i + 1 && rightSideSum * 2 > leaderValues.size() - i - 1) {
+                equileaders++;
+            }
+        }
+        return equileaders;
+    }
+}

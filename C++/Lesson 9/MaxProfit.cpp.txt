@@ -1,0 +1,41 @@
+// you can use includes, for example:
+// #include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if (A.size() == 0 || A.size() == 1) {
+        return 0;
+    }
+    int currentProfit = 0;
+    int maxPossibleProfit = 0;
+    int globalMinimum = 200000;
+    int globalMaximum = 0;
+    int localMinimum = 200000;
+    int localMAximum = 0;
+    for (int i = 0; i < A.size(); i++) {
+        if (A[i] > localMAximum) {
+            localMAximum = A[i];
+            if (A[i] > globalMaximum) {
+                globalMaximum = A[i];
+            }
+        }
+        if (A[i] < globalMinimum) {
+            currentProfit = 0;
+            localMinimum = A[i];
+            localMAximum = A[i];
+            globalMinimum = A[i];
+        } else if (A[i] < localMinimum) {
+            localMinimum = A[i];
+        }
+        if (localMAximum - localMinimum > currentProfit) {
+            currentProfit = localMAximum - localMinimum;
+            if (currentProfit > maxPossibleProfit) {
+                maxPossibleProfit = currentProfit;
+            }
+        }
+    }
+    return maxPossibleProfit;
+}

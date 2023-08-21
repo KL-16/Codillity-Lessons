@@ -1,0 +1,45 @@
+// you can use includes, for example:
+// #include <algorithm>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    if (A.size() == 1) {
+        return A[0];
+    } else {
+        int maxSum = 0;
+        int currentSum = 0;
+        int maxNegativeNumber = -2147483648;
+        bool sumChanged = false;
+        for (int i = 0; i < A.size(); i++) {
+            if (A[i] < 0) {
+                if (currentSum + A[i] > 0) {
+                    currentSum += A[i];
+                } else {
+                    if (currentSum > maxSum) {
+                        maxSum = currentSum;
+                    }
+                    currentSum = 0;
+                }
+                if (A[i] > maxNegativeNumber) {
+                    maxNegativeNumber = A[i];
+                }
+            } else {
+                currentSum += A[i];
+                if (currentSum > maxSum) {
+                    maxSum = currentSum;
+                }
+                sumChanged = true;
+            }
+        }
+        if (maxSum == 0 && currentSum == 0 && !sumChanged) {
+            return maxNegativeNumber;
+        } else if (currentSum > maxSum) {
+            return currentSum;
+        } else {
+            return maxSum;
+        }
+    }
+}
